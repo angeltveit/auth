@@ -1,5 +1,6 @@
 const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
+const jwt = require('jwt-simple')
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const config = require('../config.json')
 
@@ -10,11 +11,8 @@ let options = {
   secretOrKey: config.secretOrKey
 }
 console.log(config)
-module.exports = new JwtStrategy(options,function(jwt, done) {
-  console.log('jwt strategy')
-  let user = {
-    id: 'FAKE_ID'
-  }
+module.exports = new JwtStrategy(options,function(token, done) {
+  let user = token.sub
   if(user) return done(null, user)
   if(!user) return done(null, false)
 })

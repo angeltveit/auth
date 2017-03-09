@@ -1,0 +1,11 @@
+{
+  "secretOrKey": "YOUR-JWT-SECRET",
+  "issuer": "YOU",
+  "audience": "YOUR-DOMAIN",
+  "facebook": {
+    "clientId": "YOUR-FACEBOOK-CLIENTID",
+    "clientSecret": "YOUR-FACEBOOK-CLIENT-SECRET",
+    "scope": ["array", "of", "scopes"]
+  },
+  "authEndPoint": "http://HOSTNAME/ENDPOINT"
+}

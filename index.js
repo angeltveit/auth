@@ -6,6 +6,12 @@ class Auth {
   set registerFunction(register) {
     this.register = register
   }
+  set config(json) {
+    this.configuration = json
+  }
+  get config() {
+    return this.configuration
+  }
   routes(app) {
     return require('./router')(app)
   }

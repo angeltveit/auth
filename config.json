@@ -1,5 +1,0 @@
-{
-  "secretOrKey": "YOUR-JWT-SECRET",
-  "issuer": "YOU",
-  "audience": "YOUR-DOMAIN"
-}

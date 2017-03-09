@@ -1,6 +1,8 @@
 const jwt = require('jwt-simple')
-const config = require('../config.json')
 const moment = require('moment')
+const auth = require('../index')
+const config = auth.config
+
 module.exports = function local(req, res, next) {
   auth.login(req, res, next).then((data)=> {
     let payload = {

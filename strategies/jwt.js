@@ -2,7 +2,8 @@ const passport = require('passport')
 const JwtStrategy = require('passport-jwt').Strategy
 const jwt = require('jwt-simple')
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const config = require('../config.json')
+const auth = require('../index')
+const config = auth.config
 
 let options = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),

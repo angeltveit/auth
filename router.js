@@ -14,10 +14,14 @@ module.exports = (router) => {
   const auth = {
     jwt: passport.authenticate('jwt', {session: false}),
     local: passport.authenticate('local', {session: false}),
-    facebook: passport.authenticate('facebook', {
+    facebook: function(req, res, next) {
+      passport.authenticate('facebook', {
+        let uri = `/facebook/callback?success=${req.query.success}&failure=${req.query.failure}`
+        callbackURL: config.authEndPoint + uri,
         session: false,
         scope: config.facebook.scope
-      })
+      })(req, res, next)
+    }
   }
 
   return router
@@ -28,5 +32,5 @@ module.exports = (router) => {
     .post('/login', auth.local, require('./routes/login'))
     // Social logins
     .get('/facebook', auth.facebook, require('./routes/create'))
-    .get('/facebook/callback', auth.facebook, require('./routes/create'))
+    .get('/facebook/callback', auth.facebook, require('./routes/social'))
 }

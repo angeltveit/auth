@@ -6,6 +6,9 @@ class Auth {
   set registerFunction(register) {
     this.register = register
   }
+  set socialFunction(social) {
+    this.social = social
+  }
   set config(json) {
     this.configuration = json
   }

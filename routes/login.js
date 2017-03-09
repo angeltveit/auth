@@ -3,7 +3,7 @@ const moment = require('moment')
 const auth = require('../index')
 const config = auth.config
 
-module.exports = function local(req, res, next) {
+module.exports = function(req, res, next) {
   auth.login(req, res, next).then((data)=> {
     let payload = {
       sub: data,

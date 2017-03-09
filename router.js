@@ -29,7 +29,7 @@ module.exports = (router) => {
     // Local routes
     .get('/', auth.jwt, require('./routes/profile'))
     .post('/register', require('./routes/create'))
-    .post('/login', auth.local, require('./routes/login'))
+    .post('/login', require('./routes/login'))
     // Social logins
     .get('/facebook', auth.facebook, require('./routes/create'))
     .get('/facebook/callback', auth.facebook, require('./routes/social'))

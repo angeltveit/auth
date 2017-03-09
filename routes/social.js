@@ -4,7 +4,6 @@ const auth = require('../index')
 const config = auth.config
 
 module.exports = function local(req, res, next) {
-
   auth.social(req, res, next).then((data)=> {
     let payload = {
       sub: data,
@@ -12,7 +11,8 @@ module.exports = function local(req, res, next) {
       aud: config.audience
     }
     let token = jwt.encode(payload, config.secretOrKey)
-    let url = `${(req.query.success || '/')}?token=${token}`
+    let endpoint = req.query.success || '/'
+    let url = `${endpoint}?token=${token}`
     res.redirect(url)
   })
 }

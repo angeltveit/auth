@@ -6,10 +6,10 @@ const config = auth.config
 module.exports = function(req, res, next) {
   auth.login(req, res, next).then((data)=> {
     let payload = {
-      sub: data,
       iss: config.issuer,
       aud: config.audience
     }
+    payload = Object.assign({}, data, payload)
     res.json({
       token: jwt.encode(payload, config.secretOrKey)
     })

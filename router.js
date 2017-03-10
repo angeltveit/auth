@@ -3,10 +3,12 @@ const JwtStrategy = require('passport-jwt').Strategy
 const FbStrategy = require('passport-facebook').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const config = require('./index').config
-
+const express = require('express')
 const passport = require('passport')
 
-module.exports = (router) => {
+module.exports = () => {
+  const router = express.Router()
+
   passport.use('jwt', require('./strategies/jwt'))
   passport.use('local', require('./strategies/local'))
   passport.use('facebook', require('./strategies/facebook'))
@@ -27,9 +29,9 @@ module.exports = (router) => {
   return router
     .use(passport.initialize())
     // Local routes
-    .get('/', auth.jwt, require('./routes/profile'))
     .post('/register', require('./routes/create'))
     .post('/login', require('./routes/login'))
+    .get('/', auth.jwt, require('./routes/profile'))
     // Social logins
     .get('/facebook', auth.facebook, require('./routes/create'))
     .get('/facebook/callback', auth.facebook, require('./routes/social'))

@@ -15,8 +15,8 @@ class Auth {
   get config() {
     return this.configuration
   }
-  routes(app) {
-    return require('./router')(app)
+  routes() {
+    return require('./router')()
   }
 }
 module.exports = new Auth()

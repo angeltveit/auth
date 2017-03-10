@@ -11,7 +11,7 @@ let options = {
   iss: config.issuer,
   secretOrKey: config.secretOrKey
 }
-console.log(config)
+
 module.exports = new JwtStrategy(options,function(token, done) {
   let user = token.sub
   if(user) return done(null, user)

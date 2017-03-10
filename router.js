@@ -17,11 +17,12 @@ module.exports = () => {
     jwt: passport.authenticate('jwt', {session: false}),
     local: passport.authenticate('local', {session: false}),
     facebook: function(req, res, next) {
-      let uri = `/facebook/callback?success=${encodeURIComponent(req.query.success)}&failure=${encodeURIComponent(req.query.failure)}`
+      let uri = `/facebook/callback?success=${encodeURIComponent(req.query.success)}`
       passport.authenticate('facebook', {
         callbackURL: config.authEndPoint + uri,
         session: false,
-        scope: config.facebook.scope
+        scope: config.facebook.scope,
+        failureRedirect: req.query.failure || '/'
       })(req, res, next)
     }
   }

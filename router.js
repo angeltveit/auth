@@ -17,7 +17,7 @@ module.exports = () => {
     jwt: passport.authenticate('jwt', {session: false}),
     local: passport.authenticate('local', {session: false}),
     facebook: function(req, res, next) {
-      let uri = `/facebook/callback?success=${encodeURIComponent(req.query.success)}`
+      let uri = `/facebook/callback?success=${encodeURIComponent(req.query.success || '/')}`
       passport.authenticate('facebook', {
         callbackURL: config.authEndPoint + uri,
         session: false,

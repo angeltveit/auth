@@ -5,6 +5,7 @@ const config = auth.config
 
 module.exports = function(req, res, next) {
   auth.register(req, res, next).then((data)=> {
+    if(!data) return res.status(403).json({error: 'user exists'})
     let payload = {
       iss: config.issuer,
       aud: config.audience

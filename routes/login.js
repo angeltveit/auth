@@ -5,6 +5,7 @@ const config = auth.config
 
 module.exports = function(req, res, next) {
   auth.login(req, res, next).then((data)=> {
+    if(!data) return res.status(403).json({error: 'Invalid user'})
     let payload = {
       iss: config.issuer,
       aud: config.audience
@@ -13,5 +14,10 @@ module.exports = function(req, res, next) {
     res.json({
       token: jwt.encode(payload, config.secretOrKey)
     })
+  }).catch((err)=> {
+    if(process.env.NODE_ENV== 'development') {
+      return res.status(403).json({error: 'Database error', output: err})
+    }
+    res.status(403).json({error: 'Database error'})
   })
 }

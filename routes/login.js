@@ -4,6 +4,7 @@ const auth = require('../index')
 const config = auth.config
 
 module.exports = function(req, res, next) {
+  if(req.body.email) req.body.email = req.body.email.toLowerCase()
   auth.login(req, res, next).then((data)=> {
     if(!data) return res.status(403).json({error: 'Invalid user'})
     let payload = {
@@ -15,9 +16,9 @@ module.exports = function(req, res, next) {
       token: jwt.encode(payload, config.secretOrKey)
     })
   }).catch((err)=> {
-    if(process.env.NODE_ENV== 'development') {
-      return res.status(403).json({error: 'Database error', output: err})
+    if(process.env.NODE_ENV == 'development') {
+      res.status(403).json({error: err.message, output: err})
     }
-    res.status(403).json({error: 'Database error'})
+    res.status(403).json({error: err.message})
   })
 }

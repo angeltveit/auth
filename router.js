@@ -6,7 +6,7 @@ const config = require('./index').config
 const express = require('express')
 const passport = require('passport')
 
-module.exports = () => {
+module.exports = function() {
   const router = express.Router()
 
   passport.use('jwt', require('./strategies/jwt'))

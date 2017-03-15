@@ -5,6 +5,7 @@ const config = auth.config
 
 module.exports = function(req, res, next) {
   auth.register(req, res, next).then((data)=> {
+    if(req.body.email) req.body.email = req.body.email.toLowerCase()
     if(!data) return res.status(403).json({error: 'user exists'})
     let payload = {
       iss: config.issuer,
@@ -14,5 +15,7 @@ module.exports = function(req, res, next) {
     res.json({
       token: jwt.encode(payload, config.secretOrKey)
     })
+  }).catch(function(err) {
+    res.status(err.status || 500).json({error: err.message})
   })
 }

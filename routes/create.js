@@ -9,13 +9,15 @@ module.exports = function(req, res, next) {
     if(!data) return res.status(403).json({error: 'user exists'})
     let payload = {
       iss: config.issuer,
-      aud: config.audience
+      aud: config.audience,
+      exp: moment().add(1,'hour')
     }
     payload = Object.assign({}, data, payload)
     res.json({
       token: jwt.encode(payload, config.secretOrKey)
     })
   }).catch(function(err) {
+    console.log(err)
     res.status(err.status || 500).json({error: err.message})
   })
 }

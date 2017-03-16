@@ -7,7 +7,8 @@ module.exports = function local(req, res, next) {
   auth.social(req, res, next).then((data)=> {
     let payload = {
       iss: config.issuer,
-      aud: config.audience
+      aud: config.audience,
+      exp: moment().add(1,'hour')
     }
     payload = Object.assign({}, data, payload)
     let token = jwt.encode(payload, config.secretOrKey)

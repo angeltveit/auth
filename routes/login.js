@@ -9,7 +9,8 @@ module.exports = function(req, res, next) {
     if(!data) return res.status(403).json({error: 'Invalid user'})
     let payload = {
       iss: config.issuer,
-      aud: config.audience
+      aud: config.audience,
+      exp: moment().add(1,'hour')
     }
     payload = Object.assign({}, data, payload)
     res.json({
@@ -19,6 +20,7 @@ module.exports = function(req, res, next) {
     if(process.env.NODE_ENV == 'development') {
       res.status(403).json({error: err.message, output: err})
     }
+    console.log(err)
     res.status(403).json({error: err.message})
   })
 }

@@ -10,12 +10,17 @@ module.exports = function(req, res, next) {
     let payload = {
       iss: config.issuer,
       aud: config.audience,
-      exp: moment().add(1,'hour')
+      exp: +moment.utc().add(1,'hour').format('X')
     }
     payload = Object.assign({}, data, payload)
-    res.json({
-      token: jwt.encode(payload, config.secretOrKey)
-    })
+    try {
+      res.json({
+        token: jwt.encode(payload, config.secretOrKey)
+      })
+    } catch (err){
+      res.status(500).json({message: error.message})
+    }
+
   }).catch((err)=> {
     if(process.env.NODE_ENV == 'development') {
       res.status(403).json({error: err.message, output: err})

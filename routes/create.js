@@ -10,7 +10,8 @@ module.exports = function(req, res, next) {
     let payload = {
       iss: config.issuer,
       aud: config.audience,
-      exp: moment().add(1,'hour')
+      exp: +moment.utc().add(1,'hour').format('X')
+
     }
     payload = Object.assign({}, data, payload)
     res.json({

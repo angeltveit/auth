@@ -32,6 +32,7 @@ module.exports = function() {
     // Local routes
     .post('/register', require('./routes/create'))
     .post('/login', require('./routes/login'))
+    .post('/refresh', require('./routes/refresh'))
     .post('/reset/:token', require('./routes/reset'))
     .get('/forgot/:email', require('./routes/forgot'))
     .get('/', auth.jwt, require('./routes/profile'))

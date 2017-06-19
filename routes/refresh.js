@@ -15,6 +15,7 @@ module.exports = function(req, res, next) {
     payload = Object.assign({}, data, payload)
     try {
       res.json({
+        user: data,
         token: jwt.encode(payload, config.secretOrKey)
       })
     } catch (err){

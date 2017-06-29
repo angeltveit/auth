@@ -8,7 +8,7 @@ module.exports = function local(req, res, next) {
     let payload = {
       iss: config.issuer,
       aud: config.audience,
-      exp: +moment.utc().add(1,'hour').format('X')
+      exp: +moment.utc().add((config.expiry || 3600),'hour').format('X')
     }
     payload = Object.assign({}, data, payload)
     let token = jwt.encode(payload, config.secretOrKey)

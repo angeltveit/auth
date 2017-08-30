@@ -11,9 +11,10 @@ module.exports = function local(req, res, next) {
       exp: +moment.utc().add((config.expiry || 3600),(config.expiryUnit || 'hour')).format('X')
     }
     payload = Object.assign({}, data, payload)
-    let token = jwt.encode(payload, config.secretOrKey)
-    let endpoint = req.query.success || '/'
-    let url = `${endpoint}?token=${token}`
+    const token = jwt.encode(payload, config.secretOrKey)
+    const endpoint = req.query.success || '/'
+    const append = endpoint.includes('?')
+    const url = `${endpoint}${append ? '&' : '?'}token=${token}`
     res.redirect(url)
   })
 }

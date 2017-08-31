@@ -1,3 +1,4 @@
+const version = require('./package.json').version
 
 class Auth {
   set loginFunction(login) {
@@ -14,6 +15,9 @@ class Auth {
   }
   get config() {
     return this.configuration
+  }
+  get version() {
+    return version
   }
   routes() {
     return require('./router')()
